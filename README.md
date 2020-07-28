@@ -1,6 +1,6 @@
-# hornbill
+# flamingo
 
-Hornbill is a collection of tools for contact tracers to use collected data and identify contacts.
+Flamingo is the tool to check in and out of places.
 
 ## Usage
 
