@@ -85,7 +85,7 @@ def checkin():
 
         entry_table.update_by_field('Entry Record ID', record["fields"]["Entry Record ID"], {'Contacts': contactsID})
 
-        return "I've checked you out."
+        return render_template('donecheckout.html')
 
     else:
         entry_table.insert({"Related Place": [request.form['storeID']],
@@ -95,7 +95,7 @@ def checkin():
 
     print(request.form['idNumber'])
 
-    return request.form['storeID']
+    return render_template('donecheckin.html')
 
 
 @app.route('/registerandcheckin', methods=['GET', 'POST'])
@@ -110,7 +110,7 @@ def registerAndCheckin():
 
     print(request.form['idNumber'])
 
-    return request.form['storeID']
+    return render_template('donecheckin.html')
 
 
 if __name__ == '__main__':
