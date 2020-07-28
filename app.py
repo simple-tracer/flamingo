@@ -43,56 +43,63 @@ def checkin():
 
     userID = users_table.search('ID Number', request.form['idNumber'])[0]["fields"]["User ID"]
     record = entry_table.match("Related Main Field", userID, sort='-Entrance Time')
-    if record["fields"]["Exit Time Forced"] == 1:
+    
+    if record != {}:
+    
+        if record["fields"]["Exit Time Forced"] == 1:
         
-        entry_table.update_by_field('Entry Record ID', record["fields"]["Entry Record ID"], {'Exit Time': str(datetime.now())})
-        
-        contacts = entry_table.get_all(filterByFormula="AND(OR(" +
-                'AND(IS_AFTER({Entrance Time},"' +
-                str(record["fields"]["Entrance Time"]) +
-                '"),IS_BEFORE({Entrance Time},"' +
-                str(datetime.now()) +
-                '")),' +
-                'AND(IS_AFTER({Exit Time},"' +
-                str(record["fields"]["Entrance Time"]) +
-                '"),IS_BEFORE({Exit Time},"' +
-                str(datetime.now()) +
-                '")),' +
-                'AND(IS_AFTER({Exit Time},"' +
-                str(record["fields"]["Entrance Time"]) +
-                '"),IS_BEFORE({Exit Time},"' +
-                str(datetime.now()) +
-                '")),' +
-                'AND(IS_BEFORE({Entrance Time},"' +
-                str(record["fields"]["Entrance Time"]) +
-                '"),IS_AFTER({Exit Time},"' +
-                str(datetime.now()) +
-                '")),' +
-                'AND(IS_SAME({Entrance Time},"' +
-                str(record["fields"]["Entrance Time"]) +
-                '")),' +
-                'AND(IS_SAME({Exit Time},"' +
-                str(datetime.now()) +
-                '"))),IF({Persons ID}!="' +
-                str(record["fields"]["Persons ID"]) +
-                '",TRUE(),FALSE()))',)
-        contactsID =[]
-        for i in contacts:
+            entry_table.update_by_field('Entry Record ID', record["fields"]["Entry Record ID"], {'Exit Time': str(datetime.now())})
+            
+            contacts = entry_table.get_all(filterByFormula="AND(OR(" +
+                    'AND(IS_AFTER({Entrance Time},"' +
+                    str(record["fields"]["Entrance Time"]) +
+                    '"),IS_BEFORE({Entrance Time},"' +
+                    str(datetime.now()) +
+                    '")),' +
+                    'AND(IS_AFTER({Exit Time},"' +
+                    str(record["fields"]["Entrance Time"]) +
+                    '"),IS_BEFORE({Exit Time},"' +
+                    str(datetime.now()) +
+                    '")),' +
+                    'AND(IS_AFTER({Exit Time},"' +
+                    str(record["fields"]["Entrance Time"]) +
+                    '"),IS_BEFORE({Exit Time},"' +
+                    str(datetime.now()) +
+                    '")),' +
+                    'AND(IS_BEFORE({Entrance Time},"' +
+                    str(record["fields"]["Entrance Time"]) +
+                    '"),IS_AFTER({Exit Time},"' +
+                    str(datetime.now()) +
+                    '")),' +
+                    'AND(IS_SAME({Entrance Time},"' +
+                    str(record["fields"]["Entrance Time"]) +
+                    '")),' +
+                    'AND(IS_SAME({Exit Time},"' +
+                    str(datetime.now()) +
+                    '"))),IF({Persons ID}!="' +
+                    str(record["fields"]["Persons ID"]) +
+                    '",TRUE(),FALSE()))',)
+            contactsID =[]
+            for i in contacts:
 
-            if i["fields"]["Related User"][0] != record["fields"]["Related User"][0]:
+                if i["fields"]["Related User"][0] != record["fields"]["Related User"][0]:
 
-                contactsID.append(i["fields"]["Related User"][0])
+                    contactsID.append(i["fields"]["Related User"][0])
 
-        entry_table.update_by_field('Entry Record ID', record["fields"]["Entry Record ID"], {'Contacts': contactsID})
+            entry_table.update_by_field('Entry Record ID', record["fields"]["Entry Record ID"], {'Contacts': contactsID})
 
-        return render_template('donecheckout.html')
+            return render_template('donecheckout.html')
 
+        else:
+            entry_table.insert({"Related Place": [request.form['storeID']],
+                    "Related User": [users_table.search('ID Number', request.form['idNumber'])[0]["id"]],
+                    "Entrance Time": str(datetime.now()),})
+            return "Checked in."
     else:
-        entry_table.insert({"Related Place": [request.form['storeID']],
-                "Related User": [users_table.search('ID Number', request.form['idNumber'])[0]["id"]],
-                "Entrance Time": str(datetime.now()),})
-        return "Checked in."
-
+            entry_table.insert({"Related Place": [request.form['storeID']],
+                    "Related User": [users_table.search('ID Number', request.form['idNumber'])[0]["id"]],
+                    "Entrance Time": str(datetime.now()),})
+            return "Checked in."
     print(request.form['idNumber'])
 
     return render_template('donecheckin.html')
