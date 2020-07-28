@@ -12,8 +12,11 @@
         width: 100%;
       }
       body {
-        width: 100%;
+        width: 90%;
       }
+      input{
+          font-size: 2em;
+        }
     </style>
     <link rel="stylesheet" href="https://watercss.kognise.dev/dist/light.css" />
   </head>
@@ -114,7 +117,7 @@
             outputData.innerHTML =
               '<form action="checkin" method="POST"> <input type="text" name="storeID" id="storeID" value="' +
               code.data +
-              '" style="display:none"><br><input type="text" style = "text-align: center; width:100%" name="idNumber" id="idNumber" placeholder="ID Number" required><input type="submit" style="width:100%" value="Check in or Check Out" style="width: 20%;"></form>';
+              '" style="display:none"><br><input type="text" style = "text-align: center; width:100%; font-size: 2em; font-size: 2em" name="idNumber" id="idNumber" placeholder="ID Number" required><input type="submit" style="width:100%; font-size: 2em" value="Check in or Check Out" style="width: 20%;"></form>';
             if (code.data.includes("rec")) {
               return;
             }
