@@ -1,6 +1,6 @@
 {
-  "name": "Hornbill",
-  "description": "Admin tools for the Simple Tracer app.",
+  "name": "Flamingo",
+  "description": "The tool for users to check in and out of places, it is part of the Simple Tracer app.",
   "repository": "https://github.com/simple-tracer/flamingo/",
   "logo": "https://avatars0.githubusercontent.com/u/68422085?s=200&v=4",
   "keywords": ["flask", "simple tracer", "python"],
