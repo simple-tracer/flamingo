@@ -28,10 +28,10 @@
     <div id="output" hidden>
       <div id="outputMessage">No QR code detected.</div>
       <div hidden style="text-align: center;">
-        <h1>
+        <h1 style="font-size: 10em;">
           Welcome!
         </h1>
-        <h3 style="margin-block-end: 0em;">
+        <h3 style="margin-block-end: 1em;font-size: 4em;">
           Please provide us with some more details.
         </h3>
         <span id="outputData"></span>
@@ -117,7 +117,7 @@
             outputData.innerHTML =
               '<form action="checkin" method="POST"> <input type="text" name="storeID" id="storeID" value="' +
               code.data +
-              '" style="display:none"><br><input type="text" style = "text-align: center; width:100%; font-size: 2em; font-size: 2em" name="idNumber" id="idNumber" placeholder="ID Number" required><input type="submit" style="width:100%; font-size: 2em" value="Check in or Check Out" style="width: 20%;"></form>';
+              '" style="display:none"><br><input type="text" style = "text-align: center; width:100%; margin-bottom: 40px;font-size: 4em;height: 13vh;" name="idNumber" id="idNumber" placeholder="ID Number" required><input type="submit" value="Check in or Check Out" style="text-align: center; width:100%; margin-bottom: 40px;font-size: 4em;height: 13vh;"></form>';
             if (code.data.includes("rec")) {
               return;
             }
