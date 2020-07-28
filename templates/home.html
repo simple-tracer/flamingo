@@ -8,11 +8,12 @@
       rel="stylesheet"
     />
     <style>
-
       #canvas {
         width: 100%;
       }
-      
+      body {
+        width: 100%;
+      }
     </style>
     <link rel="stylesheet" href="https://watercss.kognise.dev/dist/light.css" />
   </head>
@@ -23,7 +24,7 @@
     <canvas id="canvas" hidden></canvas>
     <div id="output" hidden>
       <div id="outputMessage">No QR code detected.</div>
-      <div hidden style = "text-align: center">
+      <div hidden style="text-align: center;">
         <h1>
           Welcome!
         </h1>
@@ -54,7 +55,7 @@
       // Use facingMode: environment to attemt to get the front camera on phones
       navigator.mediaDevices
         .getUserMedia({ video: { facingMode: "environment" } })
-        .then(function(stream) {
+        .then(function (stream) {
           video.srcObject = stream;
           video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
           video.play();
@@ -83,7 +84,7 @@
             canvasElement.height
           );
           var code = jsQR(imageData.data, imageData.width, imageData.height, {
-            inversionAttempts: "dontInvert"
+            inversionAttempts: "dontInvert",
           });
           if (code) {
             drawLine(
@@ -127,4 +128,3 @@
     </script>
   </body>
 </html>
-
