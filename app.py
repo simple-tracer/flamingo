@@ -94,12 +94,12 @@ def checkin():
             entry_table.insert({"Related Place": [request.form['storeID']],
                     "Related User": [users_table.search('ID Number', request.form['idNumber'])[0]["id"]],
                     "Entrance Time": str(datetime.now()),})
-            return "Checked in."
+            return render_template('donecheckin.html')
     else:
             entry_table.insert({"Related Place": [request.form['storeID']],
                     "Related User": [users_table.search('ID Number', request.form['idNumber'])[0]["id"]],
                     "Entrance Time": str(datetime.now()),})
-            return "Checked in."
+            return render_template('donecheckin.html')
     print(request.form['idNumber'])
 
     return render_template('donecheckin.html')
