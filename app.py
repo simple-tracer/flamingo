@@ -120,6 +120,10 @@ def registerAndCheckin():
     return render_template('donecheckin.html')
 
 
+@app.route('/service-worker.js')
+def sw():
+    return app.send_static_file('service-worker.js')
+
 if __name__ == '__main__':
     from os import environ
     app.run(debug=False, host='0.0.0.0', port=environ.get("PORT", 5000))

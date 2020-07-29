@@ -3,6 +3,22 @@
     <meta charset="utf-8" />
     <title>Check in or out</title>
     <script src="/static/jsQR.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("service-worker.js", {
+            scope: "/",
+          })
+          .then(function (registration) {
+            console.log("Service Worker Registered!");
+            return registration;
+          })
+          .catch(function (err) {
+            console.error("Unable to register service worker.", err);
+          });
+      }
+    </script>
+    <link rel="manifest" href="/static/manifest.json" />
     <link
       href="https://fonts.googleapis.com/css?family=Ropa+Sans"
       rel="stylesheet"
@@ -14,9 +30,9 @@
       body {
         width: 90%;
       }
-      input{
-          font-size: 2em;
-        }
+      input {
+        font-size: 2em;
+      }
     </style>
     <link rel="stylesheet" href="https://watercss.kognise.dev/dist/light.css" />
   </head>
@@ -31,7 +47,7 @@
         <h1 style="font-size: 10em;">
           Welcome!
         </h1>
-        <h3 style="margin-block-end: 1em;font-size: 4em;">
+        <h3 style="margin-block-end: 1em; font-size: 4em;">
           Please provide us with some more details.
         </h3>
         <span id="outputData"></span>
